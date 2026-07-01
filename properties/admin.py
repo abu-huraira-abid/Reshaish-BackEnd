@@ -1,11 +1,27 @@
 from django.contrib import admin
 
-from properties.models import Property, VerificationReport
+from properties.models import Property, PropertyImage, VerificationReport
+
+
+class PropertyImageInline(admin.TabularInline):
+    model = PropertyImage
+    extra = 0
 
 
 @admin.register(Property)
 class PropertyAdmin(admin.ModelAdmin):
-    list_display = ("title", "owner", "city", "rent", "status", "created_at")
+    inlines = [PropertyImageInline]
+    list_display = (
+        "title",
+        "owner",
+        "city",
+        "bedrooms",
+        "bathrooms",
+        "area_sqft",
+        "rent",
+        "status",
+        "created_at",
+    )
     list_filter = ("status", "property_type", "city")
     search_fields = ("title", "address", "city", "owner__email")
 

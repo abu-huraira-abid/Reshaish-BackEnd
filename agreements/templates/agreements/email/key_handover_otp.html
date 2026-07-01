@@ -1,0 +1,54 @@
+<!doctype html>
+<html>
+  <body style="margin:0;background:#f8fafc;font-family:Arial,Helvetica,sans-serif;color:#111827;">
+    <table width="100%" cellspacing="0" cellpadding="0" style="padding:28px 14px;background:#f8fafc;">
+      <tr>
+        <td align="center">
+          <table width="100%" cellspacing="0" cellpadding="0" style="max-width:560px;background:#ffffff;border:1px solid #e5e7eb;border-radius:18px;overflow:hidden;">
+            <tr>
+              <td style="padding:26px 28px 18px;">
+                <table cellspacing="0" cellpadding="0">
+                  <tr>
+                    <td>
+                      <img src="cid:rehaish-logo" width="44" height="44" alt="Rehaish" style="display:block;border-radius:12px;">
+                    </td>
+                    <td style="padding-left:12px;font-size:20px;font-weight:700;">Rehaish</td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding:0 28px 24px;">
+                <div style="font-size:12px;font-weight:700;color:#ef4444;text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px;">Key handover</div>
+                <h1 style="font-size:26px;line-height:1.25;margin:0 0 10px;">Verify your key handover</h1>
+                <p style="font-size:15px;line-height:1.7;color:#64748b;margin:0 0 18px;">
+                  Use this OTP after scanning the QR code at the property to complete your key handover.
+                </p>
+                <div style="background:#fff1f2;border:1px solid #fecdd3;border-radius:14px;padding:18px;text-align:center;margin-bottom:18px;">
+                  <div style="font-size:13px;color:#64748b;margin-bottom:8px;">Your 6-digit OTP</div>
+                  <div style="font-size:34px;font-weight:800;letter-spacing:.18em;color:#ef4444;">{{ code }}</div>
+                  <div style="font-size:12px;color:#64748b;margin-top:8px;">Expires in {{ expiry_minutes }} minutes</div>
+                </div>
+                <table width="100%" cellspacing="0" cellpadding="0" style="background:#f8fafc;border:1px solid #e5e7eb;border-radius:14px;padding:14px;">
+                  <tr>
+                    <td style="font-size:13px;color:#64748b;">Property</td>
+                    <td align="right" style="font-size:13px;font-weight:700;">{{ property.title }}</td>
+                  </tr>
+                  <tr>
+                    <td style="font-size:13px;color:#64748b;padding-top:8px;">Agreement</td>
+                    <td align="right" style="font-size:13px;font-weight:700;padding-top:8px;">AGR-{{ agreement.id|stringformat:"06d" }}</td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding:18px 28px;background:#111827;color:#cbd5e1;font-size:12px;">
+                © {% now "Y" %} Rehaish. All rights reserved.
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>

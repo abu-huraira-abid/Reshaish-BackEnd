@@ -17,6 +17,14 @@ class PaymentTransaction(models.Model):
     payer = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT)
     amount_breakdown = models.JSONField(default=dict)
     gateway_ref = models.CharField(max_length=120, blank=True)
+    currency = models.CharField(max_length=10, default="pkr")
+    stripe_checkout_session_id = models.CharField(
+        max_length=255,
+        blank=True,
+        db_index=True,
+    )
+    stripe_payment_intent_id = models.CharField(max_length=255, blank=True)
+    stripe_customer_id = models.CharField(max_length=255, blank=True)
     status = models.CharField(
         max_length=20,
         choices=Status.choices,

@@ -4,6 +4,7 @@ User = get_user_model()
 
 
 def create_user(*, password, **user_data):
+    user_data.setdefault("email_verified", False)
     user = User(**user_data)
     user.set_password(password)
     user.save()

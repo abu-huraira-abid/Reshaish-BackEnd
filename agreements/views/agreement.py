@@ -13,7 +13,9 @@ class AgreementViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         user = self.request.user
-        queryset = Agreement.objects.select_related("property", "tenant", "landlord")
+        queryset = Agreement.objects.select_related(
+            "property", "tenant", "landlord"
+        ).order_by("-updated_at", "-created_at", "-id")
         if user.role == User.Role.ADMIN:
             return queryset
         if user.role == User.Role.TENANT:
@@ -23,6 +25,13 @@ class AgreementViewSet(viewsets.ModelViewSet):
         return queryset.none()
 
     def perform_create(self, serializer):
-        if self.request.user.role not in [User.Role.LANDLORD, User.Role.ADMIN]:
-            raise PermissionDenied("Only landlords or admins can create agreements.")
+        if self.request.user.role == User.Role.TENANT:
+            property_obj = serializer.validated_data.get("property")
+            if not property_obj:
+                raise PermissionDenied("Property is required for rental intent.")
+            serializer.validated_data["tenant"] = self.request.user
+            serializer.validated_data["landlord"] = property_obj.owner
+            serializer.validated_data["status"] = Agreement.Status.PENDING_ACCEPTANCE
+        elif self.request.user.role not in [User.Role.LANDLORD, User.Role.ADMIN]:
+            raise PermissionDenied("Only tenants, landlords, or admins can create agreements.")
         serializer.instance = create_agreement(**serializer.validated_data)

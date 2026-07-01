@@ -24,6 +24,9 @@ class Property(models.Model):
     property_type = models.CharField(max_length=20, choices=PropertyType.choices)
     address = models.TextField()
     city = models.CharField(max_length=100)
+    bedrooms = models.PositiveSmallIntegerField(default=1)
+    bathrooms = models.PositiveSmallIntegerField(default=1)
+    area_sqft = models.PositiveIntegerField(default=0)
     rent = models.PositiveIntegerField()
     deposit = models.PositiveIntegerField(default=0)
     facilities = models.JSONField(default=list, blank=True)
@@ -40,3 +43,16 @@ class Property(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class PropertyImage(models.Model):
+    property = models.ForeignKey(
+        Property,
+        on_delete=models.CASCADE,
+        related_name="images",
+    )
+    image = models.ImageField(upload_to="property_images/")
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.property.title} image"

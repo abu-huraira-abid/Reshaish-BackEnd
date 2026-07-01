@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Verify your Rehaish email</title>
+  </head>
+  <body style="margin:0;background:#f5f9ff;font-family:ui-sans-serif,system-ui,-apple-system,'Segoe UI','Helvetica Neue',Arial,'Noto Sans','Liberation Sans',sans-serif;color:#111827;">
+    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background:linear-gradient(180deg,#f5f9ff 0%,#ffffff 46%,#fff4f6 100%);padding:34px 14px;">
+      <tr>
+        <td align="center">
+          <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="max-width:640px;background:#ffffff;border:1px solid #e5e7eb;border-radius:22px;overflow:hidden;box-shadow:0 24px 60px rgba(15,23,42,0.10);">
+            <tr>
+              <td style="padding:28px 30px;background:linear-gradient(135deg,#f5f9ff 0%,#ffffff 46%,#fff4f6 100%);">
+                <table role="presentation" width="100%" cellspacing="0" cellpadding="0">
+                  <tr>
+                    <td>
+                      <img src="cid:rehaish-logo" width="42" height="42" alt="Rehaish logo" style="display:inline-block;width:42px;height:42px;border-radius:12px;vertical-align:middle;">
+                      <span style="display:inline-block;margin-left:10px;vertical-align:middle;font-weight:700;font-size:22px;color:#111827;">Rehaish</span>
+                    </td>
+                    <td align="right" style="font-size:13px;color:#6b7280;">Secure renting starts here</td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding:34px 30px 10px;">
+                <p style="margin:0 0 10px;color:#ef4444;font-weight:700;font-size:13px;letter-spacing:.04em;text-transform:uppercase;">Email verification</p>
+                <h1 style="margin:0 0 12px;font-size:30px;line-height:1.15;color:#111827;">Confirm your email address</h1>
+                <p style="margin:0;color:#6b7280;font-size:16px;line-height:1.65;">
+                  Hi {{ user.first_name|default:"there" }}, use this one-time code to verify your Rehaish account. It keeps your rentals, visits, and identity workflow protected.
+                </p>
+              </td>
+            </tr>
+            <tr>
+              <td align="center" style="padding:22px 30px;">
+                <div style="display:inline-block;background:#111827;color:#ffffff;border-radius:16px;padding:18px 26px;font-size:34px;font-weight:800;letter-spacing:8px;">{{ code }}</div>
+                <p style="margin:14px 0 0;color:#6b7280;font-size:14px;">This code expires in {{ expiry_minutes }} minutes.</p>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding:8px 30px 30px;">
+                <div style="border:1px solid #e2e8f0;background:#f8fafc;border-radius:16px;padding:18px;">
+                  <p style="margin:0;color:#334155;font-size:14px;line-height:1.6;">
+                    If you did not create a Rehaish account, you can safely ignore this email. Never share this code with anyone from outside the Rehaish verification flow.
+                  </p>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding:22px 30px;background:#111827;color:#d1d5db;">
+                <p style="margin:0 0 8px;font-weight:700;color:#ffffff;">Rehaish</p>
+                <p style="margin:0 0 12px;font-size:13px;line-height:1.6;">Verified rentals, trusted onboarding, and safer property journeys.</p>
+                <p style="margin:0;font-size:12px;color:#9ca3af;">© 2026 Rehaish. All rights reserved.</p>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>

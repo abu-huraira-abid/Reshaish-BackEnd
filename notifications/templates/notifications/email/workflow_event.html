@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ headline }}</title>
+  </head>
+  <body style="margin:0;background:#f5f9ff;font-family:ui-sans-serif,system-ui,-apple-system,'Segoe UI','Helvetica Neue',Arial,'Noto Sans','Liberation Sans',sans-serif;color:#111827;">
+    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background:linear-gradient(180deg,#f5f9ff 0%,#ffffff 46%,#fff4f6 100%);padding:34px 14px;">
+      <tr>
+        <td align="center">
+          <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="max-width:640px;background:#ffffff;border:1px solid #e5e7eb;border-radius:22px;overflow:hidden;box-shadow:0 24px 60px rgba(15,23,42,0.10);">
+            <tr>
+              <td style="padding:28px 30px;background:linear-gradient(135deg,#f5f9ff 0%,#ffffff 46%,#fff4f6 100%);">
+                <table role="presentation" width="100%" cellspacing="0" cellpadding="0">
+                  <tr>
+                    <td>
+                      <img src="cid:rehaish-logo" width="42" height="42" alt="Rehaish logo" style="display:inline-block;width:42px;height:42px;border-radius:12px;vertical-align:middle;">
+                      <span style="display:inline-block;margin-left:10px;vertical-align:middle;font-weight:700;font-size:22px;color:#111827;">Rehaish</span>
+                    </td>
+                    <td align="right" style="font-size:13px;color:#6b7280;">Property verification</td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding:34px 30px 10px;">
+                <p style="margin:0 0 10px;color:#ef4444;font-weight:700;font-size:13px;letter-spacing:.04em;text-transform:uppercase;">{{ eyebrow }}</p>
+                <h1 style="margin:0 0 12px;font-size:30px;line-height:1.15;color:#111827;">{{ headline }}</h1>
+                <p style="margin:0;color:#6b7280;font-size:16px;line-height:1.65;">
+                  Hi {{ recipient.first_name|default:"there" }}, {{ intro }}
+                </p>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding:22px 30px;">
+                <div style="border:1px solid #e2e8f0;background:#f8fafc;border-radius:16px;padding:18px;">
+                  <p style="margin:0 0 8px;color:#64748b;font-size:13px;">Property</p>
+                  <p style="margin:0;color:#111827;font-weight:800;font-size:20px;">{{ property_title }}</p>
+                  {% if city or scheduled_at or status_label %}
+                    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="margin-top:16px;">
+                      <tr>
+                        {% if city %}
+                          <td style="padding:10px 12px;border:1px solid #e5e7eb;border-radius:12px;background:#ffffff;">
+                            <p style="margin:0 0 4px;color:#64748b;font-size:12px;">City</p>
+                            <p style="margin:0;color:#111827;font-weight:700;font-size:14px;">{{ city }}</p>
+                          </td>
+                        {% endif %}
+                        {% if scheduled_at %}
+                          <td style="padding:10px 12px;border:1px solid #e5e7eb;border-radius:12px;background:#ffffff;">
+                            <p style="margin:0 0 4px;color:#64748b;font-size:12px;">Visit time</p>
+                            <p style="margin:0;color:#111827;font-weight:700;font-size:14px;">{{ scheduled_at }}</p>
+                          </td>
+                        {% endif %}
+                        {% if status_label %}
+                          <td style="padding:10px 12px;border:1px solid #e5e7eb;border-radius:12px;background:#ffffff;">
+                            <p style="margin:0 0 4px;color:#64748b;font-size:12px;">Status</p>
+                            <p style="margin:0;color:#111827;font-weight:700;font-size:14px;">{{ status_label }}</p>
+                          </td>
+                        {% endif %}
+                      </tr>
+                    </table>
+                  {% endif %}
+                </div>
+              </td>
+            </tr>
+            {% if qr_url or qr_code %}
+              <tr>
+                <td align="center" style="padding:0 30px 24px;">
+                  <div style="display:inline-block;border:1px solid #fee2e2;background:#fff7f8;border-radius:18px;padding:18px;">
+                    {% if qr_url %}
+                      <img src="{{ qr_url }}" width="220" height="220" alt="Verification QR code" style="display:block;width:220px;height:220px;border-radius:12px;background:#ffffff;">
+                    {% endif %}
+                    {% if qr_code %}
+                      <p style="margin:14px 0 0;color:#111827;font-size:14px;line-height:1.5;">
+                        QR token: <strong>{{ qr_code }}</strong>
+                      </p>
+                    {% endif %}
+                  </div>
+                  <p style="margin:12px 0 0;color:#6b7280;font-size:13px;">Show this QR to the assigned agent when they arrive.</p>
+                </td>
+              </tr>
+            {% endif %}
+            <tr>
+              <td style="padding:0 30px 30px;">
+                <div style="border:1px solid #fee2e2;background:#fff7f8;border-radius:16px;padding:18px;">
+                  <p style="margin:0;color:#334155;font-size:14px;line-height:1.6;">{{ body }}</p>
+                </div>
+                {% if cta_url and cta_label %}
+                  <p style="margin:22px 0 0;">
+                    <a href="{{ cta_url }}" style="display:inline-block;background:#ef4444;color:#ffffff;text-decoration:none;border-radius:12px;padding:12px 18px;font-weight:700;font-size:14px;box-shadow:0 12px 24px rgba(239,68,68,0.22);">{{ cta_label }}</a>
+                  </p>
+                {% endif %}
+              </td>
+            </tr>
+            <tr>
+              <td style="padding:22px 30px;background:#111827;color:#d1d5db;">
+                <p style="margin:0 0 8px;font-weight:700;color:#ffffff;">Rehaish</p>
+                <p style="margin:0 0 12px;font-size:13px;line-height:1.6;">Verified rentals, trusted onboarding, and safer property journeys.</p>
+                <p style="margin:0;font-size:12px;color:#9ca3af;">© 2026 Rehaish. All rights reserved.</p>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>

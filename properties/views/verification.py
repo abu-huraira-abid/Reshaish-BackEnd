@@ -5,6 +5,7 @@ from accounts.models import User
 from properties.models import VerificationReport
 from properties.serializers import VerificationReportSerializer
 from properties.services import create_verification_report
+from visits.models import VisitRequest
 
 
 class VerificationReportViewSet(viewsets.ModelViewSet):
@@ -27,6 +28,21 @@ class VerificationReportViewSet(viewsets.ModelViewSet):
             raise PermissionDenied(
                 "Only agents or admins can submit verification reports."
             )
+        property_obj = serializer.validated_data["property"]
+        if self.request.user.role == User.Role.AGENT:
+            has_confirmed_visit = VisitRequest.objects.filter(
+                property=property_obj,
+                agent=self.request.user,
+                status__in=[
+                    VisitRequest.Status.CHECKED_IN,
+                    VisitRequest.Status.COMPLETED,
+                ],
+            ).exists()
+            if not has_confirmed_visit:
+                raise PermissionDenied(
+                    "Schedule and confirm the verification visit before submitting "
+                    "a report."
+                )
         serializer.instance = create_verification_report(
             agent=self.request.user,
             **serializer.validated_data,

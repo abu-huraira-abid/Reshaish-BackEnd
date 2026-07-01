@@ -15,7 +15,10 @@ class FlatmateProfileViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         user = self.request.user
-        queryset = FlatmateProfile.objects.select_related("user")
+        queryset = FlatmateProfile.objects.select_related("user").order_by(
+            "-updated_at",
+            "-created_at",
+        )
         if user.role == User.Role.ADMIN:
             return queryset
         return queryset.filter(match_visibility=True) | queryset.filter(user=user)
@@ -25,5 +28,16 @@ class FlatmateProfileViewSet(viewsets.ModelViewSet):
             raise PermissionDenied("Only tenants can create flatmate profiles.")
         serializer.instance = create_flatmate_profile(
             user=self.request.user,
+            **serializer.validated_data,
+        )
+
+    def perform_update(self, serializer):
+        if (
+            self.request.user.role != User.Role.ADMIN
+            and serializer.instance.user_id != self.request.user.id
+        ):
+            raise PermissionDenied("You can only update your own flatmate profile.")
+        serializer.instance = create_flatmate_profile(
+            user=serializer.instance.user,
             **serializer.validated_data,
         )
